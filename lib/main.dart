@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// model and components
 class Data extends ChangeNotifier {
   String data = 'Some data';
 
@@ -10,6 +11,25 @@ class Data extends ChangeNotifier {
   }
 }
 
+class MyText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(Provider.of<Data>(context, listen: false).data);
+  }
+}
+
+class MyTextField extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      onChanged: (newText) {
+        Provider.of<Data>(context, listen: false).changeString(newText);
+      },
+    );
+  }
+}
+
+// app tree
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -54,23 +74,5 @@ class Level3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(Provider.of<Data>(context).data);
-  }
-}
-
-class MyText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text(Provider.of<Data>(context, listen: false).data);
-  }
-}
-
-class MyTextField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      onChanged: (newText) {
-        Provider.of<Data>(context).changeString(newText);
-      },
-    );
   }
 }
