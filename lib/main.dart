@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+class Data extends ChangeNotifier {
+  String data = 'Some data';
+
+  void changeString(String newString) {
+    data = newString;
+    notifyListeners();
+  }
+}
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<Data>(
-      builder: (context) => Data(),
+      create: (context) => Data(),
       child: MaterialApp(
         home: Scaffold(
           appBar: AppBar(
@@ -63,14 +72,5 @@ class MyTextField extends StatelessWidget {
         Provider.of<Data>(context).changeString(newText);
       },
     );
-  }
-}
-
-class Data extends ChangeNotifier {
-  String data = 'Some data';
-
-  void changeString(String newString) {
-    data = newString;
-    notifyListeners();
   }
 }
